@@ -34,6 +34,10 @@ namespace call
                         fileForSound = args[3];
                         program.Call(account, fileForSound);
                         break;
+                    case "mic":
+                        title = title.Replace("-", " - ");
+                        program.Mic(args[3]);
+                        break;
                     default:
                         break;
                 }
@@ -46,9 +50,16 @@ namespace call
             }
         }
 
+        private void Mic(string v)
+        {
+            softPhone.WinWait(title);
+            softPhone.WinActivate(title);
+            softPhone.WinWaitActive(title);
+            softPhone.ControlClick(title, "", "Button25");
+        }
+
         private void Call(string number, string fileForSound)
         {
-            System.Media.SoundPlayer player = new System.Media.SoundPlayer(fileForSound);
             softPhone.WinWait(title);
             softPhone.WinActivate(title);
             softPhone.WinWaitActive(title);
@@ -58,12 +69,12 @@ namespace call
             virtSound.WinWait("e2eSoft VSC");
             virtSound.WinActivate("e2eSoft VSC");
             virtSound.WinWaitActive("e2eSoft VSC");
-            virtSound.ControlCommand("e2eSoft VSC", "", "ComboBox1", "SelectString", "Line in (Digital Video Recorder...");
+            virtSound.ControlCommand("e2eSoft VSC", "", "ComboBox1", "SelectString", "Microphone (e2eSoft VAudio)");
             virtSound.Sleep(300);
             virtSound.ControlCommand("e2eSoft VSC", "", "ComboBox2", "SelectString", "Microsoft Sound Mapper");
             virtSound.Sleep(200);
-            player.Play();
             virtSound.ControlClick("e2eSoft VSC", "", "Button2");
+            
 
             softPhone.WinWait(title);
             softPhone.WinActivate(title);
@@ -74,8 +85,14 @@ namespace call
             softPhone.Sleep(100);
             
             softPhone.ControlClick(title, "", "Button19");
-            
-            softPhone.Sleep(14800);
+
+            System.Diagnostics.Process.Start(fileForSound);
+
+            softPhone.WinWait(title);
+            softPhone.WinActivate(title);
+            softPhone.WinWaitActive(title);
+
+            softPhone.Sleep(10000);
             softPhone.Send("{ENTER}");
 
             virtSound.WinActivate("e2eSoft VSC");
@@ -146,7 +163,7 @@ namespace call
             softPhone.WinWait(titleSettings);
             softPhone.WinActivate(titleSettings);
             softPhone.WinWaitActive(titleSettings);
-            softPhone.ControlClick(titleSettings, "", "Button16");
+            softPhone.ControlClick(titleSettings, "", "Button15");
             softPhone.Sleep(100);
             softPhone.ControlClick(titleSettings, "", "ComboBox5");
             softPhone.Sleep(100);
