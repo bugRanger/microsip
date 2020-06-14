@@ -6,7 +6,6 @@ namespace call
     class Program
     {
         AutoItX3 softPhone = new AutoItX3();
-        AutoItX3 virtSound = new AutoItX3();
         public static string title, account, transport, server, port, fileForSound = "";
         public static string titleAccount = "Account";
         public static string titleSettings = "Settings";
@@ -63,18 +62,7 @@ namespace call
             softPhone.WinWait(title);
             softPhone.WinActivate(title);
             softPhone.WinWaitActive(title);
-            softPhone.ControlClick(title, "", "Edit1");
-
-            virtSound.Run(@"C:\Program Files (x86)\e2eSoft\VSC\VSCMain.exe", "", virtSound.SW_SHOW);
-            virtSound.WinWait("e2eSoft VSC");
-            virtSound.WinActivate("e2eSoft VSC");
-            virtSound.WinWaitActive("e2eSoft VSC");
-            virtSound.ControlCommand("e2eSoft VSC", "", "ComboBox1", "SelectString", "Microphone (e2eSoft VAudio)");
-            virtSound.Sleep(300);
-            virtSound.ControlCommand("e2eSoft VSC", "", "ComboBox2", "SelectString", "Microsoft Sound Mapper");
-            virtSound.Sleep(200);
-            virtSound.ControlClick("e2eSoft VSC", "", "Button2");
-            
+            softPhone.ControlClick(title, "", "Edit1");           
 
             softPhone.WinWait(title);
             softPhone.WinActivate(title);
@@ -92,13 +80,8 @@ namespace call
             softPhone.WinActivate(title);
             softPhone.WinWaitActive(title);
 
-            softPhone.Sleep(10000);
+            softPhone.Sleep(12500);
             softPhone.Send("{ENTER}");
-
-            virtSound.WinActivate("e2eSoft VSC");
-            virtSound.WinWaitActive("e2eSoft VSC");
-            virtSound.ControlClick("e2eSoft VSC", "", "Button2");
-            virtSound.WinClose("e2eSoft VSC");
         }
 
         private void Run()
