@@ -37,6 +37,9 @@ namespace call
                         title = title.Replace("-", " - ");
                         program.Mic(args[3]);
                         break;
+                    case "toText":
+                        SoundToText.ToText(args[2]);
+                        break;
                     default:
                         break;
                 }
@@ -146,7 +149,7 @@ namespace call
             softPhone.WinWait(titleSettings);
             softPhone.WinActivate(titleSettings);
             softPhone.WinWaitActive(titleSettings);
-            softPhone.ControlClick(titleSettings, "", "Button15");
+            softPhone.ControlClick(titleSettings, "", "Button16");
             softPhone.Sleep(100);
             softPhone.ControlClick(titleSettings, "", "ComboBox5");
             softPhone.Sleep(100);
